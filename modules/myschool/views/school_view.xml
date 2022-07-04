@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    
+        <record id="view_school_list_view" model="ir.ui.view">
+            <field name="name">Danh Sách Trường Học</field>
+            <field name="model">school.information</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" optional="show"/>
+                    <field name="address" optional="show"/>
+                    <field name="type" optional="show"/>
+                    <field name="date" optional="show"/>
+                    <field name="class_list" optional="show"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="school_information_action" model="ir.actions.act_window">
+            <field name="name">Trường Học</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">school.information</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Thêm 1 Trường Học Mới
+                </p>
+            </field>
+        </record>
+        
+        <record id="school_information_form_view" model="ir.ui.view">
+            <field name="name">Form Trường Học</field>
+            <field name="model">school.information</field>
+            <field name="arch" type="xml">
+                <form string="Tags">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="type"/>
+                            <field name="address"/>
+                            <field name="date"/>
+                            <field name="class_list"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <menuitem id="school_menu_root"
+            name="Quản Lý Trường Học"
+            action="school_information_action"
+            sequence="-9"/>
+
+    </data>
+</odoo>

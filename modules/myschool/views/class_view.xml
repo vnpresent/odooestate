@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_class_list_view" model="ir.ui.view">
+            <field name="name">Danh Sách Lớp Học</field>
+            <field name="model">class.information</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" optional="show"/>
+                    <field name="grade" optional="show"/>
+                    <field name="school_id" optional="show"/>
+                    <field name="student_list" string="Số Học Sinh" optional="show"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="class_information_action" model="ir.actions.act_window">
+            <field name="name">Lớp Học</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">class.information</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Thêm 1 Lớp Học Mới
+                </p>
+            </field>
+        </record>
+        
+        <record id="class_information_form_view" model="ir.ui.view">
+            <field name="name">Form Lớp Học</field>
+            <field name="model">class.information</field>
+            <field name="arch" type="xml">
+                <form string="Tags">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="grade"/>
+                            <field name="school_id"/>
+                            <field name="student_list"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <menuitem id="class_menu_root"
+            name="Quản Lý Lớp Học"
+            action="class_information_action"
+            parent="myschool.school_menu_root"
+            sequence="-9"/>
+
+    </data>
+</odoo>

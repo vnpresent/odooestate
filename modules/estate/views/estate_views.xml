@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    
+
+    <record id="estate_property_search" model="ir.ui.view">
+        <field name="name">Tìm kiếm bất động sản</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <search string="Tìm kiếm bất động sản">
+                <!-- <field name="name"/>
+                <field name="postcode"/>
+                <field name="bedrooms"/>
+                <field name="expected_price"/>
+                <field name="living_area"/>
+                <field name="facades"/> -->
+
+                <filter name="postcode" string="postcode" domain="[('postcode','>','0')]" help="Show only opportunity"/>
+                <field name="living_area" string="living_area" filter_domain="[('living_area', '>=', self)]"/>
+                <filter name="group_garden_orientation" string="Garden Orientation" context="{'group_by':'garden_orientation'}"/>
+            </search>
+        </field>
+    </record>
+    <data>
+
+                
+        <record id="estate_view_kanban" model="ir.ui.view">
+            <field name="name">Danh sách bất động sản</field>
+            <field name="model">estate.property</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="name"/>
+                    <field name="state"/>
+                    <field name="best_price"/>
+                    <field name="selling_price"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click">
+                                <div>
+                                    <field name="name"/>
+                                </div>
+                                <div>
+                                    <field name="state"/>
+                                </div>
+                                <div>
+                                    Giá dự kiến:
+                                    <field name="expected_price"/>
+                                </div>
+                                <div t-if="record.best_price.value!=0">
+                                    Giá tốt nhát:
+                                    <field name="best_price"/>
+                                </div>
+                                <div t-if="record.selling_price.value!=0">
+                                    Giá Bán:
+                                    <field name="selling_price"/>
+                                </div>
+                                <div>
+                                    <field name="tag_ids" widget="many2many_tags"  options="{'color_field': 'color', 'no_create_edit': True}"/>
+                                </div>
+                                <!-- <div t-if="record.state.value=='New'">
+                                    This is new!
+                                </div> -->
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+
+
+        <record id="estate_property_view" model="ir.ui.view">
+            <field name="name">Danh sách bất động sản</field>
+            <field name="model">estate.property</field>
+            <field name="arch" type="xml">
+                <tree string="Danh sách bất động sản" decoration-success="state=='Offer Received'" decoration-info="state=='Offer Accepted'" decoration-danger="state=='New'"  decoration-muted="state=='Sold'">
+                    <field name="name"/>
+                    <field name="postcode"/>
+                    <field name="date_availability" optional="show"/>
+                    <field name="expected_price"/>
+                    <field name="selling_price"/>
+                    <field name="bedrooms"/>
+                    <field name="living_area"/>
+                    <field name="facades"/>
+                    <field name="garage"/>
+                    <field name="garden"/>
+                    <field name="garden_area"/>
+                    <field name="garden_orientation"/>
+                    <field name="active"/>
+                    <field name="state"/>
+                    <field name="tag_ids" widget="many2many_tags"  options="{'color_field': 'color', 'no_create_edit': True}"/>
+                    <!-- <field name="property_ids"/> -->
+                </tree>
+            </field>
+        </record>
+
+
+        
+        <record id="estate_view_form" model="ir.ui.view">
+            <field name="name">Form bất đống sản</field>
+            <field name="model">estate.property</field>
+            <field name="arch" type="xml">
+                <form string="Form bất đống sản">
+                    <header>
+                        <button name="action_cancel" type="object" string="Cancel" class="oe_highlight" attrs="{'invisible': [('state','=','Sold')]}"/>
+                        <button name="action_sold" type="object" string="Sold" class="oe_highlight" attrs="{'invisible': [('state','=','Sold')]}"/>
+                        <field name="state" widget="statusbar" statusbar_visible="New,Offer Received,Offer Accepted" clickable="true"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                            <group>
+                            </group>
+                            <group>
+                                <field name="postcode"/>
+                                <field name="date_availability"/>
+                            </group>
+                            <group>
+                                <field name="expected_price"/>
+                                <field name="selling_price"/>
+                                <field name="best_price"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Description">
+                                <group>
+                                    <group>
+                                        <field name="bedrooms"/>
+                                        <field name="living_area"/>
+                                        <field name="facades"/>
+                                        <field name="garage"/>
+                                        <field name="garden"/>
+                                        <field name="garden_area" attrs="{'invisible': [('garden','!=',True)]}"/>
+                                        <field name="garden_orientation" attrs="{'invisible': [('garden','!=',True)]}"/>
+                                    </group>
+                                    <group>
+                                        <field name="active"/>
+                                        <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}"/>
+                                        <field name="total_area"/>
+                                        <field name="date_deadline"/>
+                                        <field name="property_ids" readonly="True">
+                                            <tree>
+                                                <field name="name"/>
+                                                <field name="sequence" widget="handle"/>
+                                                <field name="note"/>
+                                             </tree>
+                                        </field>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Offer">
+                                <field name="offer_ids" attrs="{'readonly': [('state','=','Sold')]}">
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

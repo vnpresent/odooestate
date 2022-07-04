@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <menuitem id="estate_model_menu"
+            name="Quản Lý Bất Động Sản"
+            action="estate_model_action"
+            sequence="-10"/>
+        
+        <menuitem id="estate_setting_root"
+            name="Setting"
+            parent="estate_model_menu"
+            sequence="-9"/>
+        
+        <menuitem id="estate_setting_type"
+            name="Property Type"
+            parent="estate_setting_root"
+            action="estate_property_type_action"
+            sequence="-8"/>
+        
+        <menuitem id="estate_setting_tag"
+            name="Property Tag"
+            parent="estate_setting_root"
+            action="estate_property_tag_action"
+            sequence="-8"/>
+
+    </data>
+</odoo>

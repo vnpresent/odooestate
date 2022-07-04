@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_student_list_view" model="ir.ui.view">
+            <field name="name">Danh Sách Học Sinh</field>
+            <field name="model">student.information</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" optional="show"/>
+                    <field name="address" optional="show"/>
+                    <field name="date" optional="show"/>
+                    <field name="class_id" optional="show"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="student_information_action" model="ir.actions.act_window">
+            <field name="name">Học Sinh</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">student.information</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Thêm 1 Học SInh Mới
+                </p>
+            </field>
+        </record>
+        
+        <record id="student_information_form_view" model="ir.ui.view">
+            <field name="name">Form Học Sinh</field>
+            <field name="model">student.information</field>
+            <field name="arch" type="xml">
+                <form string="Form Học Sinh">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="address"/>
+                            <field name="date"/>
+                            <field name="class_id"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <menuitem id="student_menu_root"
+            name="Quản Lý Học Sinh"
+            action="student_information_action"
+            parent="myschool.school_menu_root"
+            sequence="-9"/>
+
+    </data>
+</odoo>
